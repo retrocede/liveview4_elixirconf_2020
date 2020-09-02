@@ -1,19 +1,8 @@
 defmodule Memento.Picker do
   alias Memento.Library
 
-  def first() do
-    Library.first()
-  end
-
-  def next(id) do
-    Library.next(id)
-  end
-
-  def previous(id) do
-    Library.previous(id)
-  end
-
-  def passage(id) do
-    Library.get_passage!(id)
-  end
+  defdelegate first, to: Library
+  defdelegate next(id), to: Library
+  defdelegate previous(id), to: Library
+  defdelegate passage(id), to: Library, as: :get_passage!
 end
