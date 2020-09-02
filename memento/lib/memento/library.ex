@@ -101,4 +101,18 @@ defmodule Memento.Library do
   def change_passage(%Passage{} = passage, attrs \\ %{}) do
     Passage.changeset(passage, attrs)
   end
+
+  def first() do
+    1
+  end
+
+  def next(id) do
+    count = Repo.aggregate(Passage, :count)
+    rem(id, count) + 1
+  end
+
+  def previous(id) do
+    count = Repo.aggregate(Passage, :count)
+    rem(id - 2 + count, count) + 1
+  end
 end
