@@ -25,23 +25,15 @@ defmodule MementoWeb.LandingLive do
   end
 
   defp load_passage(socket) do
-    assign(socket, passage: passage(socket.assigns.passage_id))
-  end
-
-  defp passage(:it) do
-    %{name: "IT crowd", text: "Did you try turning it off and on again?", steps: 3}
-  end
-
-  defp passage(:grail) do
-    %{name: "Holy Grail", text: "'Tis but a flesh wound.", steps: 4}
+    assign(socket, passage: Memento.Picker.passage(socket.assigns.passage_id))
   end
 
   defp previous_id(socket) do
-    assign(socket, passage_id: :grail)
+    assign(socket, passage_id: Memento.Picker.previous(socket.assigns.passage_id))
   end
 
   defp next_id(socket) do
-    assign(socket, passage_id: :it)
+    assign(socket, passage_id: Memento.Picker.next(socket.assigns.passage_id))
   end
 
   def handle_event("prev-click", _meta, socket) do
