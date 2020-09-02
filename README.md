@@ -115,7 +115,7 @@ liveview4_elixirconf_2020> git remote add upstream https://github.com/groxio-lea
 
 ```
 Bruce Tate
-Your Name
+Ian Johnson
 ```
 
 - Commit the file and push
