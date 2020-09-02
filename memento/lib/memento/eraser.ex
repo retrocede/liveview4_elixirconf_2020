@@ -1,6 +1,8 @@
 defmodule Memento.Eraser do
   defstruct [:plan, :text]
 
+  @ignored_characters [" ", "?", "!", "\n", ".", ",", ";"]
+
   def new(%{text: text, steps: steps}, shuffle \\ &Enum.shuffle/1) do
     %__MODULE__{
       text: text,
@@ -24,7 +26,7 @@ defmodule Memento.Eraser do
     |> Enum.join()
   end
 
-  defp replace_char({char, _}, _) when char in [" ", "?", "!", "\n", ".", ",", ";"] do
+  defp replace_char({char, _}, _) when char in @ignored_characters do
     char
   end
 
