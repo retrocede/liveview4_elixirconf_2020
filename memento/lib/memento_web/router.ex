@@ -2,30 +2,32 @@ defmodule MementoWeb.Router do
   use MementoWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_live_flash
-    plug :put_root_layout, {MementoWeb.LayoutView, :root}
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_live_flash)
+    plug(:put_root_layout, {MementoWeb.LayoutView, :root})
+    plug(:protect_from_forgery)
+    plug(:put_secure_browser_headers)
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug(:accepts, ["json"])
   end
 
   scope "/", MementoWeb do
-    pipe_through :browser
+    pipe_through(:browser)
 
-    live "/", PageLive, :index
-    live "/welcome", LandingLive
+    live("/", PageLive, :index)
+    live("/welcome", LandingLive)
 
-    live "/passages", PassageLive.Index, :index
-    live "/passages/new", PassageLive.Index, :new
-    live "/passages/:id/edit", PassageLive.Index, :edit
+    live("/passages", PassageLive.Index, :index)
+    live("/passages/new", PassageLive.Index, :new)
+    live("/passages/:id/edit", PassageLive.Index, :edit)
 
-    live "/passages/:id", PassageLive.Show, :show
-    live "/passages/:id/show/edit", PassageLive.Show, :edit
+    live("/passages/:id", PassageLive.Show, :show)
+    live("/passages/:id/show/edit", PassageLive.Show, :edit)
+
+    live("/erase/:id", EraserLive)
   end
 
   # Other scopes may use custom stacks.
@@ -44,8 +46,8 @@ defmodule MementoWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
-      pipe_through :browser
-      live_dashboard "/dashboard", metrics: MementoWeb.Telemetry
+      pipe_through(:browser)
+      live_dashboard("/dashboard", metrics: MementoWeb.Telemetry)
     end
   end
 end
