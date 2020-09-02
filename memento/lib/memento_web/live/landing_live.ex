@@ -1,12 +1,13 @@
 defmodule MementoWeb.LandingLive do
   use MementoWeb, :live_view
+  alias Memento.Picker
 
   def mount(_params, _session, socket) do
     {
       :ok,
       assign(
         socket,
-        passage_id: :it
+        passage_id: Picker.first()
       )
       |> load_passage
     }
@@ -25,15 +26,15 @@ defmodule MementoWeb.LandingLive do
   end
 
   defp load_passage(socket) do
-    assign(socket, passage: Memento.Picker.passage(socket.assigns.passage_id))
+    assign(socket, passage: Picker.passage(socket.assigns.passage_id))
   end
 
   defp previous_id(socket) do
-    assign(socket, passage_id: Memento.Picker.previous(socket.assigns.passage_id))
+    assign(socket, passage_id: Picker.previous(socket.assigns.passage_id))
   end
 
   defp next_id(socket) do
-    assign(socket, passage_id: Memento.Picker.next(socket.assigns.passage_id))
+    assign(socket, passage_id: Picker.next(socket.assigns.passage_id))
   end
 
   def handle_event("prev-click", _meta, socket) do
