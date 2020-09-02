@@ -7,6 +7,7 @@ defmodule Memento.Eraser do
     %__MODULE__{
       text: text,
       plan: make_plan(text, steps, shuffle)
+      # [[1,2], [3,4]]
     }
   end
 
