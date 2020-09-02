@@ -17,11 +17,19 @@ defmodule MementoWeb.LandingLive do
     ~L"""
     <h1>Welcome!</h1>
 
-    <h2>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
       <button phx-click="prev-click">Previous</button>
-      <%= @passage.name %>
+      <h2>
+        <%= @passage.name %>
+      </h2>
       <button phx-click="next-click">Next</button>
-    </h2>
+    </div>
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <pre><%= @passage.text %></pre>
+    </div>
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <button phx-click="select-click">Select</button>
+    </div>
     """
   end
 
@@ -53,5 +61,9 @@ defmodule MementoWeb.LandingLive do
       |> next_id
       |> load_passage
     }
+  end
+
+  def handle_event("select-click", _meta, socket) do
+    {:noreply, push_redirect(socket, to: "/game/#{socket.assigns.passage_id}")}
   end
 end
